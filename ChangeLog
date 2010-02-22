@@ -1,0 +1,8 @@
+Revision history for Perl extension Bot-BasicBot-Pluggable-Module-Gitbot
+
+0.01  Mon, 22 Feb 2010 02:21:17 -0000 (Jacob Helwig <jhelwig@cpan.org>)
+     - Initial Commit
+     - Initial 0.01 version of the module.
+     - Add .shipit file.
+     - Update release date in Changes file.
+     - Setup ShipIt

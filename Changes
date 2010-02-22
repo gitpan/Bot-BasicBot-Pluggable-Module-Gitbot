@@ -1,0 +1,14 @@
+---
+global:
+  name: Bot-BasicBot-Pluggable-Module-Gitbot
+releases:
+  - author: 'Jacob Helwig <jhelwig@cpan.org>'
+    changes:
+      - Initial Commit
+      - Initial 0.01 version of the module.
+      - Add .shipit file.
+      - Update release date in Changes file.
+      - Setup ShipIt
+    date: 2010-02-22T02:21:17Z
+    tags: []
+    version: 0.01
