@@ -1,5 +1,8 @@
 Revision history for Perl extension Bot-BasicBot-Pluggable-Module-Gitbot
 
+0.01.01  Mon, 22 Feb 2010 03:25:48 -0000 (Jacob Helwig <jhelwig@cpan.org>)
+     - Add a package line for the PAUSE indexer to find.
+
 0.01  Mon, 22 Feb 2010 02:21:17 -0000 (Jacob Helwig <jhelwig@cpan.org>)
      - Initial Commit
      - Initial 0.01 version of the module.

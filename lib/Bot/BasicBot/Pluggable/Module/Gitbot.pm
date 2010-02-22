@@ -1,3 +1,5 @@
+package Bot::BasicBot::Pluggable::Module::Gitbot;
+
 use MooseX::Declare;
 
 class Bot::BasicBot::Pluggable::Module::Gitbot
@@ -6,8 +8,6 @@ class Bot::BasicBot::Pluggable::Module::Gitbot
     use File::Fu   qw();
     use File::Spec qw();
     use Git        qw();
-
-    use Data::Dumper::Concise::Sugar;
 
     use File::Basename  qw( basename  );
     use Text::Pluralize qw( pluralize );
@@ -163,7 +163,7 @@ Version 0.01
 
 =cut
 
-our $VERSION = '0.01';
+our $VERSION = '0.01.01';
 
 =head1 SYNOPSIS
 

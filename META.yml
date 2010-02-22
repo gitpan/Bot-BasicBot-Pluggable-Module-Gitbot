@@ -10,6 +10,10 @@ meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
   version: 1.4
 name: Bot-BasicBot-Pluggable-Module-Gitbot
+provides:
+  Bot::BasicBot::Pluggable::Module::Gitbot:
+    file: lib/Bot/BasicBot/Pluggable/Module/Gitbot.pm
+    version: v0.1.1
 requires:
   Bot::BasicBot::Pluggable: 0
   File::Basename: 0
