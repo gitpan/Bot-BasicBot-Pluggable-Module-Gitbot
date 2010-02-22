@@ -1,5 +1,9 @@
 Revision history for Perl extension Bot-BasicBot-Pluggable-Module-Gitbot
 
+0.01.03  Mon, 22 Feb 2010 06:37:08 -0000 (Jacob Helwig <jhelwig@cpan.org>)
+     - Ignore .author file
+     - Re-generate a proper META.yml
+
 0.01.02  Mon, 22 Feb 2010 06:00:38 -0000 (Jacob Helwig <jhelwig@cpan.org>)
      - Switch to Module::Install.
      - Remove automatic Twitter notifications from the ShipIt steps.

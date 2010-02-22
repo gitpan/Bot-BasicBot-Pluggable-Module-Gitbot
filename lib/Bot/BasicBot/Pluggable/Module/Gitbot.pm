@@ -1,3 +1,5 @@
+use 5.008;
+
 use MooseX::Declare;
 
 class Bot::BasicBot::Pluggable::Module::Gitbot
@@ -157,11 +159,11 @@ Bot::BasicBot::Pluggable::Module::Gitbot - A Bot::BasicBot::Pluggable Module to 
 
 =head1 VERSION
 
-Version 0.01.02
+Version 0.01.03
 
 =cut
 
-our $VERSION = '0.01.02';
+our $VERSION = '0.01.03';
 
 =head1 SYNOPSIS
 

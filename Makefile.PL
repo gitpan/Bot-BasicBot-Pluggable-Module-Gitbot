@@ -20,4 +20,5 @@ bugtracker 'http://rt.cpan.org/NoAuth/Bugs.html?Dist=Bot-BasicBot-Pluggable-Modu
 repository 'git://github.com/jhelwig/Bot-BasicBot-Pluggable-Module-Gitbot.git';
 
 auto_provides_class;
+
 WriteAll;

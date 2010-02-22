@@ -4,6 +4,13 @@ global:
 releases:
   - author: 'Jacob Helwig <jhelwig@cpan.org>'
     changes:
+      - Ignore .author file
+      - Re-generate a proper META.yml
+    date: 2010-02-22T06:37:08Z
+    tags: []
+    version: 0.01.03
+  - author: 'Jacob Helwig <jhelwig@cpan.org>'
+    changes:
       - Switch to Module::Install.
       - Remove automatic Twitter notifications from the ShipIt steps.
       - Remove Build.PL from the MANIFEST.
