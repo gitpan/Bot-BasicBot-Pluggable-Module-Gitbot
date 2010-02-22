@@ -4,6 +4,14 @@ global:
 releases:
   - author: 'Jacob Helwig <jhelwig@cpan.org>'
     changes:
+      - Switch to Module::Install.
+      - Remove automatic Twitter notifications from the ShipIt steps.
+      - Remove Build.PL from the MANIFEST.
+    date: 2010-02-22T06:00:38Z
+    tags: []
+    version: 0.01.02
+  - author: 'Jacob Helwig <jhelwig@cpan.org>'
+    changes:
       - Add a package line for the PAUSE indexer to find.
     date: 2010-02-22T03:25:48Z
     tags: []

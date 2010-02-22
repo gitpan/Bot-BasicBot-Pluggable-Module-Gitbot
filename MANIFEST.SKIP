@@ -2,6 +2,7 @@
 ^.git
 .sw[op]$
 ^MANIFEST.bak$
+^Makefile$
 ^_build
 ^blib
 ^pm_to_blib
