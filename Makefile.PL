@@ -4,6 +4,9 @@ name     'Bot-BasicBot-Pluggable-Module-Gitbot';
 all_from 'lib/Bot/BasicBot/Pluggable/Module/Gitbot.pm';
 author   'Jacob Helwig <jhelwig@cpan.org>';
 
+build_requires 'File::Find::Rule';
+build_requires 'File::Find::Rule::Perl';
+
 test_requires 'Test::More';
 test_requires 'Test::TempDir';
 
@@ -13,6 +16,7 @@ requires 'File::Fu';
 requires 'File::HomeDir';
 requires 'Git';
 requires 'MooseX::Declare';
+requires 'PPI';
 requires 'Text::Pluralize';
 
 homepage   'http://github.com/jhelwig/Bot-BasicBot-Pluggable-Module-Gitbot';

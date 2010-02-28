@@ -4,6 +4,8 @@ author:
   - 'Jacob Helwig <jhelwig@cpan.org>'
 build_requires:
   ExtUtils::MakeMaker: 6.42
+  File::Find::Rule: 0
+  File::Find::Rule::Perl: 0
   Test::More: 0
   Test::TempDir: 0
 configure_requires:
@@ -22,7 +24,7 @@ no_index:
 provides:
   Bot::BasicBot::Pluggable::Module::Gitbot:
     file: lib/Bot/BasicBot/Pluggable/Module/Gitbot.pm
-    version: 0.01.03
+    version: 0.01.04
 requires:
   Bot::BasicBot::Pluggable: 0
   File::Basename: 0
@@ -30,6 +32,7 @@ requires:
   File::HomeDir: 0
   Git: 0
   MooseX::Declare: 0
+  PPI: 0
   Text::Pluralize: 0
   perl: 5.8.0
 resources:
@@ -37,4 +40,4 @@ resources:
   homepage: http://github.com/jhelwig/Bot-BasicBot-Pluggable-Module-Gitbot
   license: http://dev.perl.org/licenses/
   repository: git://github.com/jhelwig/Bot-BasicBot-Pluggable-Module-Gitbot.git
-version: 0.01.03
+version: 0.01.04
