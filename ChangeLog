@@ -1,5 +1,8 @@
 Revision history for Perl extension Bot-BasicBot-Pluggable-Module-Gitbot
 
+0.01.05  Sun, 28 Feb 2010 09:29:16 -0000 (Jacob Helwig <jhelwig@cpan.org>)
+     - Add missing test requirements.
+
 0.01.04  Sun, 28 Feb 2010 07:22:57 -0000 (Jacob Helwig <jhelwig@cpan.org>)
      - Add missing requirements.
 

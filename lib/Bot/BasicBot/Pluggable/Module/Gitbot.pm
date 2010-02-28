@@ -159,11 +159,11 @@ Bot::BasicBot::Pluggable::Module::Gitbot - A Bot::BasicBot::Pluggable Module to 
 
 =head1 VERSION
 
-Version 0.01.04
+Version 0.01.05
 
 =cut
 
-our $VERSION = '0.01.04';
+our $VERSION = '0.01.05';
 
 =head1 SYNOPSIS
 

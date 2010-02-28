@@ -4,6 +4,12 @@ global:
 releases:
   - author: 'Jacob Helwig <jhelwig@cpan.org>'
     changes:
+      - Add missing test requirements.
+    date: 2010-02-28T09:29:16Z
+    tags: []
+    version: 0.01.05
+  - author: 'Jacob Helwig <jhelwig@cpan.org>'
+    changes:
       - Add missing requirements.
     date: 2010-02-28T07:22:57Z
     tags: []

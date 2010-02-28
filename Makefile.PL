@@ -7,6 +7,8 @@ author   'Jacob Helwig <jhelwig@cpan.org>';
 build_requires 'File::Find::Rule';
 build_requires 'File::Find::Rule::Perl';
 
+test_requires 'Directory::Scratch';
+test_requires 'Git::Wrapper';
 test_requires 'Test::More';
 test_requires 'Test::TempDir';
 
