@@ -6,11 +6,8 @@ use Test::Bot::BasicBot::Pluggable;
 use File::Spec   qw();
 use Git::Wrapper qw();
 
-use Carp       qw( confess );
-use Cwd        qw( getcwd  );
-use File::Path qw( rmtree  );
-
-$SIG{'__DIE__'} = sub { confess $_[0] };
+use Cwd        qw( getcwd );
+use File::Path qw( rmtree );
 
 my $bot = Test::Bot::BasicBot::Pluggable->new();
 
@@ -68,7 +65,8 @@ is(
     );
 }
 
-subtest 'Handles Git repos with working directories' => sub {
+note 'Handles Git repos with working directories';
+{
     my $repo_dir = scratch();
     my $repo_path = File::Spec->rel2abs("$repo_dir");
 
@@ -139,11 +137,17 @@ subtest 'Handles Git repos with working directories' => sub {
         'Does not respond to SHA1s shorter than 7 characters.'
     );
 
-    $repo_dir->cleanup();
-    done_testing();
-};
+    is(
+        $bot->tell_indirect("1111111"),
+        '',
+        'Does not say anything when given a bad SHA1.'
+    );
 
-subtest 'Handles bare Git repos' => sub {
+    $repo_dir->cleanup();
+}
+
+note 'Handles bare Git repos';
+{
     my $repo_dir = scratch();
     my $repo_path = File::Spec->rel2abs("$repo_dir");
 
@@ -218,10 +222,10 @@ subtest 'Handles bare Git repos' => sub {
     );
 
     $repo_dir->cleanup();
-    done_testing();
-};
+}
 
-subtest 'Handles multiple repos' => sub {
+note 'Handles multiple repos';
+{
     my $repo_dir = scratch();
     my $repo_path = File::Spec->rel2abs("$repo_dir");
 
@@ -323,7 +327,6 @@ subtest 'Handles multiple repos' => sub {
     );
 
     $repo_dir->cleanup();
-    done_testing();
-};
+}
 
 done_testing();

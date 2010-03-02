@@ -4,6 +4,13 @@ global:
 releases:
   - author: 'Jacob Helwig <jhelwig@cpan.org>'
     changes:
+      - Replace subtests with notes.
+      - "Remove response when given something that looks like a SHA1, but can't be found."
+    date: 2010-03-02T20:55:52Z
+    tags: []
+    version: 0.01.06
+  - author: 'Jacob Helwig <jhelwig@cpan.org>'
+    changes:
       - Add missing test requirements.
     date: 2010-02-28T09:29:16Z
     tags: []

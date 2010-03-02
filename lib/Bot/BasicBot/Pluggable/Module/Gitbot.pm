@@ -5,6 +5,8 @@ use MooseX::Declare;
 class Bot::BasicBot::Pluggable::Module::Gitbot
     extends Bot::BasicBot::Pluggable::Module
 {
+    our $VERSION = '0.01.06';
+
     use File::Fu   qw();
     use File::Spec qw();
     use Git        qw();
@@ -54,13 +56,7 @@ class Bot::BasicBot::Pluggable::Module::Gitbot
             } ? 1 : 0;
         });
 
-        unless ($repo) {
-            $self->reply(
-                $message,
-                "Huh?  I have no clue what you're talking about...",
-            );
-            return;
-        }
+        return unless $repo;
 
         my $type = eval {
             $repo->command_oneline(
@@ -156,14 +152,6 @@ class Bot::BasicBot::Pluggable::Module::Gitbot
 =head1 NAME
 
 Bot::BasicBot::Pluggable::Module::Gitbot - A Bot::BasicBot::Pluggable Module to give out Gitweb links for commits.
-
-=head1 VERSION
-
-Version 0.01.05
-
-=cut
-
-our $VERSION = '0.01.05';
 
 =head1 SYNOPSIS
 
