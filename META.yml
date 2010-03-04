@@ -26,7 +26,7 @@ no_index:
 provides:
   Bot::BasicBot::Pluggable::Module::Gitbot:
     file: lib/Bot/BasicBot/Pluggable/Module/Gitbot.pm
-    version: 0.01.06
+    version: 1.00.00
 requires:
   Bot::BasicBot::Pluggable: 0
   File::Basename: 0
@@ -38,8 +38,7 @@ requires:
   Text::Pluralize: 0
   perl: 5.8.0
 resources:
-  bugtracker: http://rt.cpan.org/NoAuth/Bugs.html?Dist=Bot-BasicBot-Pluggable-Module-Gitbot
   homepage: http://github.com/jhelwig/Bot-BasicBot-Pluggable-Module-Gitbot
   license: http://dev.perl.org/licenses/
   repository: git://github.com/jhelwig/Bot-BasicBot-Pluggable-Module-Gitbot.git
-version: 0.01.06
+version: 1.00.00

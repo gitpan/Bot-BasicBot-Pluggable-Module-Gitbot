@@ -22,7 +22,6 @@ requires 'PPI';
 requires 'Text::Pluralize';
 
 homepage   'http://github.com/jhelwig/Bot-BasicBot-Pluggable-Module-Gitbot';
-bugtracker 'http://rt.cpan.org/NoAuth/Bugs.html?Dist=Bot-BasicBot-Pluggable-Module-Gitbot';
 repository 'git://github.com/jhelwig/Bot-BasicBot-Pluggable-Module-Gitbot.git';
 
 auto_provides_class;

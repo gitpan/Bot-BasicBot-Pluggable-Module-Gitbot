@@ -1,5 +1,13 @@
 Revision history for Perl extension Bot-BasicBot-Pluggable-Module-Gitbot
 
+1.00.00  Thu, 04 Mar 2010 23:53:23 -0000 (Jacob Helwig <jhelwig@cpan.org>)
+     - Remove the bugtracker line from Makefile.PL
+     - Add support for <repo-name>/<ref-name> style linking.
+     - DRY up the creation of the test repositories.
+     - Add support for reporting on multiple matches within a single message.
+     - Refactor to DRY up retrieving information from/about a repository.
+     - Rework the output format.
+
 0.01.06  Tue, 02 Mar 2010 20:55:52 -0000 (Jacob Helwig <jhelwig@cpan.org>)
      - Replace subtests with notes.
      - Remove response when given something that looks like a SHA1, but can't be found.

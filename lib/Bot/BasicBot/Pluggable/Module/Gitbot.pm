@@ -5,13 +5,14 @@ use MooseX::Declare;
 class Bot::BasicBot::Pluggable::Module::Gitbot
     extends Bot::BasicBot::Pluggable::Module
 {
-    our $VERSION = '0.01.06';
+    our $VERSION = '1.00.00';
 
     use File::Fu   qw();
     use File::Spec qw();
     use Git        qw();
 
     use File::Basename  qw( basename  );
+    use List::MoreUtils qw( natatime  );
     use Text::Pluralize qw( pluralize );
 
     has _repos => (
@@ -44,41 +45,203 @@ class Bot::BasicBot::Pluggable::Module::Gitbot
 
     method told($message)
     {
-        my ($match, $sha1, $filename) = $message->{body} =~ /(([0-9a-f]{7,})(?::(\S+))?)/i;
-        return unless defined $sha1;
+        my @matches;
+        push @matches, $self->_get_sha_text($message->{body});
+        push @matches, $self->_get_repo_text($message->{body});
+        return unless @matches;
 
+        return join "\n", map {
+            my $ref = defined $_->{sha}
+                ? substr($_->{sha}, 0, 7)
+                : $_->{branch};
+
+            my $blob = '';
+
+            if (defined $_->{filename}) {
+                $ref .= ':' . $_->{filename};
+                $blob = ' [blob]';
+            }
+
+            my $commit_message = defined $_->{commit_message}
+                ? $_->{commit_message} . ' - '
+                : '';
+
+            "[@{[ $_->{repo} ]} $ref] $commit_message@{[ $_->{gitweb_url} ]}$blob"
+        } @matches;
+    }
+
+    method _get_sha_text($message)
+    {
+        my @matches = $message =~ /(([0-9a-f]{7,})(?::(\S+))?)/gi;
+        return unless @matches;
+
+        my @results;
+        my $iterator = natatime(3, @matches);
+        while (my ($match, $sha, $filename) = $iterator->()) {
+            my %match_info = $self->_get_info_for_sha($sha, $filename);
+            next unless %match_info;
+
+            push(
+                @results,
+                {
+                    match          => $match,
+                    sha            => $sha,
+                    filename       => $filename,
+                    gitweb_url     => $match_info{gitweb_url},
+                    repo           => $match_info{repo},
+                    commit_message => $match_info{commit_message},
+                },
+            );
+        }
+
+        return @results;
+    }
+
+    method _get_repo_text($message)
+    {
+        my @matches = $message =~ m|(([^/ ]+)/([^: ]+)(?::(\S+))?)|g;
+        return unless @matches;
+
+        my @results;
+        my $iterator = natatime(4, @matches);
+        while (my ($match, $repo_name, $branch, $filename) = $iterator->()) {
+            my %match_info = $self->_get_info_for_repo($repo_name, $branch, $filename);
+            next unless %match_info;
+            push(
+                @results,
+                {
+                    match          => $match,
+                    branch         => $branch,
+                    filename       => $filename,
+                    gitweb_url     => $match_info{gitweb_url},
+                    repo           => $match_info{repo},
+                    commit_message => $match_info{commit_message},
+                },
+            );
+        }
+
+        return @results;
+    }
+
+    method _get_info_for_sha($sha, $filename?)
+    {
         my $repo = $self->_first_repo(sub {
             return eval {
                 $_->command_oneline(
-                    [ 'cat-file', '-t', $sha1, ],
+                    [ 'cat-file', '-t', $sha, ],
                     { STDERR => 0 },
                 )
             } ? 1 : 0;
         });
-
         return unless $repo;
 
-        my $type = eval {
-            $repo->command_oneline(
-                [ 'cat-file', '-t', $sha1, ],
-                { STDERR => 0 },
-            )
-        };
-
-        my $project = basename(
-            $repo->wc_path()
-                ? $repo->wc_path()
-                : $repo->repo_path()
-        );
+        my $type           = $self->_obj_type_for_repo_and_sha($repo, $sha);
+        my $commit_message = $self->_commit_message_for_repo_and_committish($repo, $sha);
+        my $project        = $self->_project_name_from_repo($repo);
 
         my $gitweb_url = $self->_get_gitweb_url({
             project  => $project,
             type     => $type,
-            commit   => $sha1,
+            commit   => $sha,
             filename => $filename,
         });
 
-        return "$match can be found at: $gitweb_url";
+        return (
+            gitweb_url     => $gitweb_url,
+            repo           => $project,
+            commit_message => $commit_message,
+        );
+    }
+
+    method _get_info_for_repo($repo_name, $branch, $filename?)
+    {
+        my $repo = $self->_first_repo(sub {
+                my $name = basename(
+                    $_->wc_path()
+                        ? $_->wc_path()
+                        : $_->repo_path()
+                );
+
+                my ($base_repo_name)   = $name      =~ m/(.*)(?:\.git)?$/i;
+                my ($base_search_name) = $repo_name =~ m/(.*)(?:\.git)?$/i;
+
+                return 0 unless $base_repo_name =~ m/$base_search_name/i;
+
+                return eval {
+                    $_->command_oneline(
+                        [ 'rev-parse', $branch, ],
+                        { STDERR => 0 },
+                    )
+                } ? 1 : 0;
+        });
+        return unless $repo;
+
+        my $commit_message = $self->_commit_message_for_repo_and_committish($repo, $branch);
+        my $project        = $self->_project_name_from_repo($repo);
+
+        my $gitweb_url = $self->_get_gitweb_url({
+            type     => 'log',
+            commit   => $branch,
+            project  => $project,
+            filename => $filename,
+        });
+
+        return (
+            gitweb_url     => $gitweb_url,
+            repo           => $project,
+            commit_message => $commit_message,
+        );
+    }
+
+    method _project_name_from_repo($repo)
+    {
+        return basename(
+            $repo->wc_path()
+                ? $repo->wc_path()
+                : $repo->repo_path()
+        );
+    }
+
+    method _obj_type_for_repo_and_sha($repo, $sha)
+    {
+        return eval {
+            $repo->command_oneline(
+                [ 'cat-file', '-t', $sha, ],
+                { STDERR => 0 },
+            )
+        };
+    }
+
+    method _project_name_from_repo($repo)
+    {
+        return basename(
+            $repo->wc_path()
+                ? $repo->wc_path()
+                : $repo->repo_path()
+        );
+    }
+
+    method _commit_message_for_repo_and_committish($repo, $committish)
+    {
+        my $type = $self->_obj_type_for_repo_and_sha($repo, $committish);
+        return undef unless defined $type && $type eq 'commit';
+
+        return eval {
+            $repo->command_oneline(
+                [ 'log', '-1', '--pretty=format:%s', $committish, ],
+                { STDERR => 0 },
+            )
+        };
+    }
+
+    method _obj_type_for_repo_and_sha($repo, $sha)
+    {
+        return eval {
+            $repo->command_oneline(
+                [ 'cat-file', '-t', $sha, ],
+                { STDERR => 0 },
+            )
+        };
     }
 
     method admin($message)
@@ -141,7 +304,7 @@ class Bot::BasicBot::Pluggable::Module::Gitbot
             $type = 'commitdiff';
         }
 
-        if ($options->{filename}) {
+        if (defined $options->{filename}) {
             $extra_params .= ";f=@{[ $options->{filename} ]}";
             $type = 'blob';
         }
