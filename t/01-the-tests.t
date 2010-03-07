@@ -73,7 +73,6 @@ sub _make_git_repo_with_n_commits($$$)
     my ($repo_dir, $repo_name, $n_commits) = @_;
     $repo_dir->mkdir($repo_name);
     my $repo_path = File::Spec->rel2abs(File::Spec->catdir($repo_dir, $repo_name));
-    my $repo_name = basename($repo_path);
 
     my $git = Git::Wrapper->new($repo_path);
     $git->init();
@@ -390,7 +389,6 @@ note 'Handles multiple repos';
         'Handles <sha>:<file> properly for second_repo'
     );
 
-    my $second_repo_abbrev_sha = substr $second_repo_commit_sha, 0, 7;
     is(
         $bot->tell_indirect($second_repo_abbrev_sha),
         "[second_repo $second_repo_abbrev_sha] Commit number 1 in second_repo - http://example.com/?p=second_repo;a=commitdiff;hb=$second_repo_abbrev_sha",

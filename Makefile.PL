@@ -1,8 +1,8 @@
 use inc::Module::Install;
 
-name     'Bot-BasicBot-Pluggable-Module-Gitbot';
-all_from 'lib/Bot/BasicBot/Pluggable/Module/Gitbot.pm';
-author   'Jacob Helwig <jhelwig@cpan.org>';
+name                 'Bot-BasicBot-Pluggable-Module-Gitbot';
+all_from             'lib/Bot/BasicBot/Pluggable/Module/Gitbot.pm';
+author               'Jacob Helwig <jhelwig@cpan.org>';
 
 build_requires 'File::Find::Rule';
 build_requires 'File::Find::Rule::Perl';
@@ -23,6 +23,8 @@ requires 'Text::Pluralize';
 
 homepage   'http://github.com/jhelwig/Bot-BasicBot-Pluggable-Module-Gitbot';
 repository 'git://github.com/jhelwig/Bot-BasicBot-Pluggable-Module-Gitbot.git';
+
+readme_markdown_from 'lib/Bot/BasicBot/Pluggable/Module/Gitbot.pm';
 
 auto_provides_class;
 

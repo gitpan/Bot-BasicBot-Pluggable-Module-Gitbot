@@ -1,6 +1,13 @@
 Revision history for Perl extension Bot-BasicBot-Pluggable-Module-Gitbot
 
-1.00.00  Thu, 04 Mar 2010 23:53:23 -0000 (Jacob Helwig <jhelwig@cpan.org>)
+1.00.01  Sun, 07 Mar 2010 21:30:59 -0000 (Jacob Helwig <jhelwig@cpan.org>)
+     - Remove dead code from the tests.
+     - Clean up the .gitignore file.
+     - Add version, and Readme handling to the shipit steps.
+     - Add a README.mkdn so we get something pretty on GitHub.
+     - Update the POD examples.
+
+1.00  Thu, 04 Mar 2010 23:53:23 -0000 (Jacob Helwig <jhelwig@cpan.org>)
      - Remove the bugtracker line from Makefile.PL
      - Add support for <repo-name>/<ref-name> style linking.
      - DRY up the creation of the test repositories.

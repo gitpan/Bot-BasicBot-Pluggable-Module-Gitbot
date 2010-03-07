@@ -5,7 +5,7 @@ use MooseX::Declare;
 class Bot::BasicBot::Pluggable::Module::Gitbot
     extends Bot::BasicBot::Pluggable::Module
 {
-    our $VERSION = '1.00.00';
+    our $VERSION = '1.00.01';
 
     use File::Fu   qw();
     use File::Spec qw();
@@ -316,6 +316,23 @@ class Bot::BasicBot::Pluggable::Module::Gitbot
 
 Bot::BasicBot::Pluggable::Module::Gitbot - A Bot::BasicBot::Pluggable Module to give out Gitweb links for commits.
 
+=begin readme
+
+=head1 INSTALLATION
+
+To install this module, run the following commands:
+
+    perl Makefile.PL
+    make
+    make test
+    make install
+
+=end readme
+
+=head1 VERSION
+
+1.00.01
+
 =head1 SYNOPSIS
 
     use Bot::BasicBot::Pluggable;
@@ -341,14 +358,32 @@ characters) where the bot can hear it, it will try to find a repository under
 C<repo_root>, and provide a GitWeb url to the commitdiff of that SHA1.
 
     <me> gitbot: 1a2b3c4
-    <gitbot> me: 1a2b3c4 can be found at: http://example.com/?p=my_repo.git;a=commitdiff;hb=1a2b3c4
+    <gitbot> me: [repo.git 1a2b3c4] http://example.com/?p=my_repo.git;a=commitdiff;hb=1a2b3c4
 
 
 You can also specify things in the form C<< <sha>:<file> >>, and the module will
 reply with a link to the blob of that file, in the commit specified by the SHA.
 
     <me> Hey, you should check out 1a2b3c4:README
-    <gitbot> 1a2b3c4:README can be found at: http://example.com/?p=my_repo.git;a=blob;hb=1a2b3c4;f=README
+    <gitbot> [repo.git 1a2b3c4:README] http://example.com/?p=my_repo.git;a=blob;hb=1a2b3c4;f=README [blob]
+
+
+If you wish you reference a ref from a specific repository, you can do that,
+too.  Just say something in the form of C<< <repo>/<ref> >>, where C<< <repo> >>
+is the name of the repository on disk (optionally without the C<.git> at the
+end), and C<< <ref> >> is something parsable by C<git rev-parse>.
+
+    <me> Anyone seen the latest commits on gitbot/master ?
+    <gitbot> [gitbot.git master] http://example.com/?p=gitbot.git;a=log;hb=master
+
+    <me> Could someone code review project/refs/personal/my-topic-branch ?
+    <gitbot> [project.git refs/personal/my-topic-branch] http://example.com/?p=gitbot.git;a=log;hb=refs/personal/my-topic-branch
+
+
+You can also directly link to a file this way using C<< <repo>/<ref>:<file> >>.
+
+    <me> You should check out project/master:README
+    <gitbot> [project.git master:README] http://example.com/?p=project.git;a=blob;hb=master;f=README [blob]
 
 
 =head1 AUTHOR
